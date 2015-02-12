@@ -36,6 +36,7 @@ This should include a <<Title>>, a <<Body>>, and a
 		n_item['title'] = raw_input('Title: ')
 		n_item['body'] = raw_input('Body: ')
 		n_item['priority'] = raw_input('Priority: ')
+		n_item['tags'] = raw_input('Tags: ')
 		
 		# Get Datetime after writing
 		d_time = datetime.now()
@@ -65,12 +66,29 @@ This should include a <<Title>>, a <<Body>>, and a
 		
 		print(
 """
- Title         | Body          | Date          
+ Title         | Body          | Tags          | Date          
 """
 		)
 
 		for i in item_list:
-			print(" {0:13} | {1:13} | {2} {3}".format(i["title"], i["body"][:13], i["date"], i["time"]))
+			print(" {0:13} | {1:13} | {2:13} | {3} {4}".format(i["title"], i["body"][:13], i["tags"][:13], i["date"], i["time"]))
+
+	def search(self):
+		term = raw_input("Query: ")
+		with open(self.file_path, 'r') as f:
+			data = f.read()
+			item_data = json.loads(data)
+
+		for i in item_data:
+			title = i["title"]
+			body = i["body"]
+			priority = i["priority"]
+			date = i["date"]
+
+			if term.lower() in title.lower() or term.lower() in body.lower():
+				print("\nTitle: {0}".format(title))
+				print("Body: {0}".format(body))
+				print("Priority: {0}".format(priority))
 
 	def check_file(self):
 		f = open(self.file_path, 'r+')
@@ -87,5 +105,6 @@ This should include a <<Title>>, a <<Body>>, and a
 item = Item()
 item.check_file()
 
-#item.create_item()
+item.create_item()
 item.show()
+#item.search()
