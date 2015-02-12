@@ -1,1 +1,3 @@
-Initialize and Junk
+ I've been writing python since highschool. And as any programmer, my career started with a lot of "Hello World" Scripts. My code was ugly, it involved a lot of conditional branches; unnecessarily nested of course. I didn't know about itertools, xrange, or even string format()ing; nor could I make a GUI or even know what pyGTK was. So I hope to revisit these beginner programs with an air of professionalism. I will strive to make my code pythonic, semantic, and be diligent in my git commits, so that any young developer may see the process of building a simple script.
+
+These "simple" scripts will be made more complex and convoluted than they could be. The challenge may fall along the lines of "Ask the user their name", and I will create a data structure to store their information, make full use of string manipulation, list comprehensions, and so on. The point isn't to just do the challenges, but to do them as I would now, a seasoned developer. 
