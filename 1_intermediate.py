@@ -63,11 +63,17 @@ This should include a <<Title>>, a <<Body>>, and a
 		with open(self.file_path, 'r') as f:
 			item_list = json.loads(f.read())
 		
+		print(
+"""
+ Title         | Body          | Date          
+"""
+		)
+
 		for i in item_list:
-			print("\nTitle: {0}".format(i["title"]))
+			print(" {0:13} | {1:13} | {2} {3}".format(i["title"], i["body"][:13], i["date"], i["time"]))
 
 
 item = Item()
 
-item.create_item()
+#item.create_item()
 item.show()
