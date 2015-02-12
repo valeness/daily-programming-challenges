@@ -26,7 +26,7 @@ To Create an Item enter all relevant information.
 This should include a <<Title>>, a <<Body>>, and a 
 <<Priority Level>>
 """
-		self.file_path = 'files/1_intermediate_save.json'
+		self.file_path = 'files/intermediate_1_save.json'
 
 	def create_item(self):
 		print(self.c_message)
@@ -52,6 +52,7 @@ This should include a <<Title>>, a <<Body>>, and a
 		with open(self.file_path, 'r+') as f:
 			# Read Old Data
 			data = json.loads(f.read())
+			n_item['id'] = len(data)
 			data.append(n_item)
 			save_data = json.dumps(data)
 
@@ -66,12 +67,12 @@ This should include a <<Title>>, a <<Body>>, and a
 		
 		print(
 """
- Title         | Body          | Tags          | Date          
+ ID  | Title         | Body          | Tags          | Date          
 """
 		)
 
 		for i in item_list:
-			print(" {0:13} | {1:13} | {2:13} | {3} {4}".format(i["title"], i["body"][:13], i["tags"][:13], i["date"], i["time"]))
+			print(" {5:3} | {0:13} | {1:13} | {2:13} | {3} {4}".format(i["title"], i["body"][:13], i["tags"][:13], i["date"], i["time"], str(i["id"])[:3]))
 
 	def search(self):
 		term = raw_input("Query: ")
@@ -80,15 +81,39 @@ This should include a <<Title>>, a <<Body>>, and a
 			item_data = json.loads(data)
 
 		for i in item_data:
+			item_id = i["id"]
 			title = i["title"]
 			body = i["body"]
-			priority = i["priority"]
-			date = i["date"]
 
 			if term.lower() in title.lower() or term.lower() in body.lower():
-				print("\nTitle: {0}".format(title))
-				print("Body: {0}".format(body))
-				print("Priority: {0}".format(priority))
+				print(
+"""
+ID: {0}
+Title: {1}
+Body: {2}""".format(item_id, title, body))
+
+	def delete(self):
+		print("Enter Id of the item you with to delete")
+		select = int(raw_input('>>'))
+
+		with open(self.file_path, 'r+') as f:
+			data = f.read()
+			item_data = json.loads(data)
+			
+			for i, v in enumerate(item_data):
+				if v["id"] == select:
+					del item_data[i]
+
+			print("Deleted Successfully")
+
+			data_save = json.dumps(item_data)
+
+			# Rewind file for writing
+			f.seek(0)
+			f.truncate()
+			f.write(data_save)
+
+
 
 	def check_file(self):
 		f = open(self.file_path, 'r+')
@@ -105,6 +130,7 @@ This should include a <<Title>>, a <<Body>>, and a
 item = Item()
 item.check_file()
 
-item.create_item()
+#item.create_item()
 item.show()
+item.delete()
 #item.search()
