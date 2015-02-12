@@ -72,8 +72,20 @@ This should include a <<Title>>, a <<Body>>, and a
 		for i in item_list:
 			print(" {0:13} | {1:13} | {2} {3}".format(i["title"], i["body"][:13], i["date"], i["time"]))
 
+	def check_file(self):
+		f = open(self.file_path, 'r+')
+		r_file = f.read()
+		if len(r_file) <= 2:
+			# Rewind file for writing
+			f.seek(0)
+			f.truncate()
+			f.write("[]")
+			f.close()
+		else:
+			pass
 
 item = Item()
+item.check_file()
 
 #item.create_item()
 item.show()
