@@ -4,6 +4,7 @@ the ability to add/delete items based on calendar events
 The events will be sortable by date
 """
 import json
+import datetime
 
 # Choose Number
 print("""
@@ -35,6 +36,16 @@ This should include a <<Title>>, a <<Body>>, and a
 		n_item['title'] = raw_input('Title: ')
 		n_item['body'] = raw_input('Body: ')
 		n_item['priority'] = raw_input('Priority: ')
+		
+		# Get Datetime after writing
+		d_time = datetime.date()
+		# Formatted Date and Time
+		f_date = d_time.strftime("%d/%m/%y")
+		f_time = d.strftime("%I:%M")
+		# Store Date/Time as separate entities so we can use
+		# split() on them when we are searching
+		n_item['date'] = date
+		n_item['time'] = time
 		#print(item)
 
 		with open(self.file_path, 'r+') as f:
@@ -53,7 +64,7 @@ This should include a <<Title>>, a <<Body>>, and a
 			item_list = json.loads(f.read())
 		
 		for i in item_list:
-			print(i["title"])
+			print("Title: {0}".format(i["title"]))
 
 
 item = Item()
