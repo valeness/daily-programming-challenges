@@ -45,3 +45,12 @@ while running:
 		guess = get_guess()
 	elif 'y' in command:
 		print("Yay! I guessed right!")
+		print("Do you wish to play again?")
+		choice = raw_input('>>')
+		if 'y' in choice:
+			base  = 0
+			limit = 100
+			print(directions)
+			guess = get_guess()
+		else:
+			running = False
