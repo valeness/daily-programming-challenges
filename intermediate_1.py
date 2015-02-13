@@ -6,17 +6,22 @@ The events will be sortable by date
 import json
 from datetime import datetime
 
-# Choose Number
-print("""
--==Menu==-
-1.) Create
-2.) Delete
-3.) Search
-4.) Display
-""")
+running = True
 
-# Get User's Choice
-#choice = raw_input('>>')
+def menu():
+	# Choose Number
+	print("""
+	-==Menu==-
+	1.) Create
+	2.) Delete
+	3.) Search
+	4.) Display
+	5.) Quit
+	""")
+
+def get_choice():
+	choice = raw_input('>>')
+	return choice
 
 class Item():
 
@@ -60,6 +65,8 @@ This should include a <<Title>>, a <<Body>>, and a
 			f.seek(0)
 			f.truncate()
 			f.write("{0}\n".format(save_data))
+		# Confirmation
+		print("Item Created")
 
 	def show(self):
 		with open(self.file_path, 'r') as f:
@@ -104,6 +111,7 @@ Body: {2}""".format(item_id, title, body))
 				if v["id"] == select:
 					del item_data[i]
 
+			# Confirmation
 			print("Deleted Successfully")
 
 			data_save = json.dumps(item_data)
@@ -130,7 +138,31 @@ Body: {2}""".format(item_id, title, body))
 item = Item()
 item.check_file()
 
-#item.create_item()
-item.show()
-item.delete()
-#item.search()
+# 1.) Create
+# 2.) Delete
+# 3.) Search
+# 4.) Display
+# 5.) Quit
+
+menu()
+choice = get_choice()
+
+while running:
+	if '1' in choice:
+		item.create_item()
+		choice = get_choice()
+	elif '2' in choice:
+		item.delete()
+		choice = get_choice()
+	elif '3' in choice:
+		item.search()
+		choice = get_choice()
+	elif '4' in choice:
+		item.show()
+		choice = get_choice()
+	elif '5' in choice:
+		print("Quitting")
+		running = False
+	elif 'h' in choice.lower():
+		menu()
+		choice = get_choice()
