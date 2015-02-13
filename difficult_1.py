@@ -11,6 +11,7 @@ directions = """
 Think of a number from 1 - 100. I will try to guess it!
 Tell me if it is too high or too low by typing 
 an 'H/h' for high, and a 'L/l' for low
+When I guess the right number, type 'yes'
 """
 
 print(directions)
